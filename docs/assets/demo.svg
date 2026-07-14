@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="800" viewBox="0 0 920 800" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="14">
+  <!-- Terminal transcript of real runs against the bundled example files:
+       `nearjoin join` on the name columns, then two `nearjoin score` calls.
+       All output text is copied verbatim from actual executions. -->
+  <rect width="920" height="800" rx="10" fill="#0d1117"/>
+  <rect width="920" height="34" rx="10" fill="#161b22"/>
+  <rect y="20" width="920" height="14" fill="#161b22"/>
+  <circle cx="22" cy="17" r="6" fill="#ff5f57"/>
+  <circle cx="42" cy="17" r="6" fill="#febc2e"/>
+  <circle cx="62" cy="17" r="6" fill="#28c840"/>
+  <text x="460" y="22" fill="#8b949e" text-anchor="middle" font-size="12">nearjoin — every match, explained</text>
+  <g fill="#c9d1d9">
+    <text x="24" y="62"><tspan fill="#7ee787">$</tspan> nearjoin join customers_crm.csv customers_billing.csv --left-on name --right-on customer</text>
+    <text x="24" y="86">nearjoin: 12 left rows x 11 right rows [kind=name]</text>
+    <text x="24" y="108">  matched <tspan fill="#7ee787">9</tspan>, review <tspan fill="#d29922">1</tspan>, unmatched left <tspan fill="#79c0ff">2</tspan>, unmatched right <tspan fill="#79c0ff">1</tspan></text>
+    <text x="24" y="130">  blocking compared 10 of 132 possible pairs (<tspan fill="#7ee787">92% skipped</tspan>)</text>
+    <text x="24" y="166"><tspan fill="#7ee787">$</tspan> nearjoin score "Smith &amp; Sons Ltd." "Smith and Sons Limited"</text>
+    <text x="24" y="190">score <tspan font-weight="bold" fill="#7ee787">100 / 100</tspan>  [name]</text>
+    <text x="24" y="212">  left : 'Smith &amp; Sons Ltd.' -&gt; <tspan fill="#79c0ff">'smith and sons'</tspan></text>
+    <text x="24" y="234" fill="#8b949e">         - case-folded</text>
+    <text x="24" y="256" fill="#8b949e">         - expanded '&amp;' to 'and'</text>
+    <text x="24" y="278" fill="#8b949e">         - removed punctuation</text>
+    <text x="24" y="300" fill="#8b949e">         - dropped legal suffix 'ltd'</text>
+    <text x="24" y="322">  right: 'Smith and Sons Limited' -&gt; <tspan fill="#79c0ff">'smith and sons'</tspan></text>
+    <text x="24" y="344" fill="#8b949e">         - case-folded</text>
+    <text x="24" y="366" fill="#8b949e">         - dropped legal suffix 'ltd'</text>
+    <text x="24" y="388">  components:</text>
+    <text x="24" y="410">    exact         1.000 x 100%  both sides normalize to 'smith and sons'</text>
+    <text x="24" y="432">  penalties: <tspan fill="#7ee787">none</tspan></text>
+    <text x="24" y="468"><tspan fill="#7ee787">$</tspan> nearjoin score "123 Main St" "125 Main St" --kind address</text>
+    <text x="24" y="492">score <tspan font-weight="bold" fill="#d29922">56.6 / 100</tspan>  [address]</text>
+    <text x="24" y="514">  left : '123 Main St' -&gt; <tspan fill="#79c0ff">'123 main st'</tspan></text>
+    <text x="24" y="536" fill="#8b949e">         - case-folded</text>
+    <text x="24" y="558">  right: '125 Main St' -&gt; <tspan fill="#79c0ff">'125 main st'</tspan></text>
+    <text x="24" y="580" fill="#8b949e">         - case-folded</text>
+    <text x="24" y="602">  components:</text>
+    <text x="24" y="624">    token_sort    0.909 x 30%  edit similarity after sorting tokens <tspan fill="#8b949e">('123 main st' vs '125 main st')</tspan></text>
+    <text x="24" y="646">    token_overlap 0.667 x 20%  shared tokens: main, st <tspan fill="#8b949e">(only left: 123; only right: 125)</tspan></text>
+    <text x="24" y="668">    char          0.952 x 25%  Jaro-Winkler over '123 main st' vs '125 main st'</text>
+    <text x="24" y="690">    alignment     0.889 x 25%  average similarity of each token to its best counterpart</text>
+    <text x="24" y="712">  penalties:</text>
+    <text x="24" y="734">    <tspan fill="#ff7b72">numeric_mismatch -30</tspan>  numbers disagree: left has {123}, right has {125}</text>
+    <text x="24" y="770" fill="#8b949e">95% string similarity, different buildings — and the score says why.</text>
+  </g>
+</svg>
