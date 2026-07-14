@@ -9,7 +9,7 @@ description = "Fuzzy-join two datasets on names or addresses with explainable ma
 readme = "README.md"
 requires-python = ">=3.9"
 license = { text = "MIT" }
-authors = [{ name = "JaydenCJ" }]
+authors = [{ name = "JaydenCJ", email = "aisingioro.kiyon@gmail.com" }]
 keywords = ["fuzzy-matching", "record-linkage", "csv", "deduplication", "data-cleaning", "reconciliation", "cli"]
 classifiers = [
     "Development Status :: 3 - Alpha",
